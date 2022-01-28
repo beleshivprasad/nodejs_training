@@ -57,7 +57,7 @@ const create = async (req, res) => {
   const { title, desc } = req.body;
   const author = req.user[0].dataValues.email;
   const { error, data } = await addBlogToDB(title, desc, author);
-  console.log(error,data)
+  console.log(error, data);
   if (data) {
     logger.info(`Blog Adding Successfull  : `);
     res.status(201).json(data);
@@ -70,7 +70,8 @@ const create = async (req, res) => {
 const update = async (req, res) => {
   const id = req.params.id;
   const { title, desc } = req.body;
-  const { error, data } = await updateBlogFromDB(title, desc, id);
+  const author = req.user[0].dataValues.email;
+  const { error, data } = await updateBlogFromDB(title, desc, author, id);
   if (data) {
     logger.info(`Blog Update Successfull  : `);
     res.status(201).json(data);
@@ -82,7 +83,7 @@ const update = async (req, res) => {
 
 const delet = async (req, res) => {
   const title = req.params.title;
-  const email = req.user.email;
+  const email = req.user[0].dataValues.email;
   const { error, data } = await deleteBlogFromDB(title, email);
   if (data) {
     logger.info(`Blog Deletion Successfull  `);

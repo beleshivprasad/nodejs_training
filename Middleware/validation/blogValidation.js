@@ -40,7 +40,7 @@ const blogValidationForTitle = [
 
 const blogValidationForID = [
   param("id")
-    .isMongoId()
+    .isNumeric()
     .withMessage("Invalid Blog ID")
     .custom((id) => isBlogNotExistForID(id))
     .withMessage("Not Blog Exists with this Title"),

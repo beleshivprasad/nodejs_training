@@ -42,15 +42,15 @@ const addBlogToDB = async (title, desc, author) => {
   return res;
 };
 
-const updateBlogFromDB = async (title, desc, id) => {
+const updateBlogFromDB = async (title, desc,author, id) => {
   const res = {
     error: null,
     data: null,
   };
-  const result = await Blog.findByIdAndUpdate(id, { title, desc });
-  const data = await Blog.find({ title, desc })
+  const result = await Blog.update({ title, desc }, { where: { id,author } });
+  const data = await Blog.findAll({ where: { title, desc } })
     .then((data) => {
-      res.data = data[0];
+      res.data = data[0].dataValues;
     })
     .catch((error) => {
       res.error = error;
@@ -64,8 +64,8 @@ const deleteBlogFromDB = async (title, author) => {
     data: null,
     error: null,
   };
-  const data = await Blog.deleteOne({ $and: [{ author }, { title }] });
-  const result = await Blog.find({ $and: [{ author }, { title }] })
+  const user = await Blog.destroy({ where: { author, title } });
+  const result = await Blog.findAll({ where: { author, title } })
     .then((data) => {
       if (data.length === 0) {
         res.data = { deleted: true };
@@ -74,7 +74,6 @@ const deleteBlogFromDB = async (title, author) => {
     .catch((error) => {
       res.error = error;
     });
-  console.log(res);
   return res;
 };
 

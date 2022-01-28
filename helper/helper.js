@@ -39,13 +39,23 @@ const isBlogExistForEmail = async (email) => {
 };
 
 const isBlogNotExistForEmail = async (email) => {
-  const blog = await Blog.findAll({ author: email });
+  const blog = await Blog.findAll({ where: { author: email } });
   if (blog.length === 0) {
     return Promise.reject();
   } else {
     return Promise.resolve();
   }
 };
+
+const isBlogNotExistForID = async (id) => {
+  const blog = await Blog.findAll({ where: { id } });
+  if (blog.length === 0) {
+    return Promise.reject();
+  } else {
+    return Promise.resolve();
+  }
+};
+
 const isBlogExistForTitle = async (title) => {
   const blog = await Blog.findAll({ where: { title: title } });
   if (blog.length !== 0) {
@@ -55,17 +65,8 @@ const isBlogExistForTitle = async (title) => {
   }
 };
 
-const isBlogNotExistForID = async (id) => {
-  const blog = await Blog.findById(id);
-  if (!blog) {
-    return Promise.reject();
-  } else {
-    return Promise.resolve();
-  }
-};
-
 const isBlogNotExistForTitle = async (title) => {
-  const blog = await Blog.find({where:{ title: title }}
+  const blog = await Blog.findAll({ where: { title: title } });
   if (blog.length === 0) {
     return Promise.reject();
   } else {
