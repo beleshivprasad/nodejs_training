@@ -2,6 +2,7 @@ console.clear();
 const express = require("express");
 const dotenv = require("dotenv");
 const morgan = require("morgan");
+const cors = require("cors");
 
 //importing accessStream function for saving log
 const { accessStream, logger } = require("./Middleware/Logger/logger");
@@ -19,6 +20,9 @@ ConnectDB();
 
 //creating express app
 const app = express();
+
+//allowing cors
+app.use(cors({ origin: ["http://localhost:5000", "http://localhost:3000"] }));
 
 //importing routes
 const userRoute = require("./Routes/userRouter");

@@ -15,19 +15,24 @@ const register = async (req, res) => {
     res.status(500).json({ error: error });
   }
 };
+const userInfo = async (req, res) => {
+  const user = await findUserFromDB({ email: req.user[0].dataValues.email });
+  logger.log("info", `User Info Sent : ${user.email}`);
+  return user;
+};
 
 const login = async (req, res) => {
   const { email, password } = req.body;
+  // console.log(req.body);
   const user = await findUserFromDB({ email: email });
   if (user && (await bcrypt.compare(password, user.password))) {
     logger.log("info", `Successfully Logged In : ${user.email}`);
+    res.cookie("server_jwt", generateToken(user.email), {
+      maxAge: 1000 * 60 * 60 * 24,
+      httpOnly: true,
+    });
     res.json({
-      id: user.id,
-      fname: user.fname,
-      lname: user.lname,
-      email: user.email,
       token: generateToken(user.email),
-      isAdmin: user.isAdmin,
     });
   } else {
     logger.log("error", `Invalid Email or Password : ${user.email}`);
@@ -35,4 +40,4 @@ const login = async (req, res) => {
   }
 };
 
-module.exports = { register, login };
+module.exports = { register, login, userInfo };

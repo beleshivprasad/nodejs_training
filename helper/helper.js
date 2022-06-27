@@ -6,10 +6,11 @@ const Blog = models.Blog;
 
 const isEmailExist = async (email) => {
   const user = await User.findAll({ where: { email } });
+  console.log("shiv", user);
   if (user.length !== 0) {
-    return Promise.reject();
+    return true;
   } else {
-    return Promise.resolve();
+    return false;
   }
 };
 const isEmailNotExist = async (email) => {

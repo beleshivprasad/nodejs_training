@@ -57,7 +57,7 @@ const create = async (req, res) => {
   const { title, desc } = req.body;
   const author = req.user[0].dataValues.email;
   const { error, data } = await addBlogToDB(title, desc, author);
-  console.log(error, data);
+  // console.log(error, data);
   if (data) {
     logger.info(`Blog Adding Successfull  : `);
     res.status(201).json(data);

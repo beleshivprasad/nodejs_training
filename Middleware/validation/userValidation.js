@@ -27,7 +27,6 @@ const registerValidation = [
     .withMessage("Please Enter Email")
     .isLength({ min: 8 })
     .withMessage("Minimum Lenght should be 8 characters")
-    .custom((password, { req }) => MatchPassword(password, req)),
 ];
 
 const loginValidation = [

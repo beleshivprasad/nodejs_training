@@ -19,6 +19,7 @@
   "homepage": "https://github.com/sunil4sonawane/node_training_2022#readme",
   "dependencies": {
     "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
     "crypto": "^1.0.1",
     "dotenv": "^14.2.0",
     "ejs": "^3.1.6",

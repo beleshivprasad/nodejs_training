@@ -7,10 +7,10 @@ const viewBlogFromDB = async (args) => {
     data: null,
     error: null,
   };
-  console.log(args);
+  // console.log(args);
   const result = await Blog.findAll({ where: args })
     .then((data) => {
-      console.log(data);
+      // console.log(data);
       res.data = data;
     })
     .catch((err) => {
@@ -33,7 +33,7 @@ const addBlogToDB = async (title, desc, author) => {
     where: { title, author },
   })
     .then((data) => {
-      console.log(data);
+      // console.log(data);
       res.data = data[0].dataValues;
     })
     .catch((err) => {

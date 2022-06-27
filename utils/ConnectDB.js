@@ -12,12 +12,12 @@ const ConnectDB = async () => {
           logger.info(
             `Database Connected Succesfully : ${conn.connection.host}`
           );
-          console.log(`MongoDB Connect : ${conn.connection.host}`);
+          // console.log(`MongoDB Connect : ${conn.connection.host}`);
         }
       })
       .catch((error) => {
         logger.error(`Database Connection Failed `);
-        console.error("Error : ", error);
+        // console.error("Error : ", error);
       });
   } catch (error) {
     logger.error(`Database Connection Failed  `);
